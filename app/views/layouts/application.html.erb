@@ -1,14 +1,35 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Typingru</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <html>
+    <head>
+
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <%= stylesheet_link_tag "materialize.min" %>
+      <%= stylesheet_link_tag "game" %>
+      <%= csrf_meta_tags %>
+<!--       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/game.css"/>
+ -->
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    <nav>
+      <div class="nav-wrapper teal accent-4">
+        <a href="#" class="brand-logo center">Typing-Ru</a>
+      </div>
+    </nav>
 
 <%= yield %>
 
-</body>
-</html>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+      <%= javascript_include_tag "materialize.min","typingru" %>
+
+      </body>
+  </html>
