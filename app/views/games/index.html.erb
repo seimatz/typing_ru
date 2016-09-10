@@ -33,6 +33,10 @@
           <span class="white-text">
           Q:  2/30
           </span>
+          <div id="questions_all">
+          <!--問題一覧　ループ中に改行入れない-->
+          <% @questions.each do |q| %><%= q.question %>,<% end %>
+        </div>
         </div>
       </div>
 

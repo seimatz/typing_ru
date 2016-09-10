@@ -105,7 +105,10 @@
 
       var qNumber= 0;//問題番号初期値
       //問題文設定。ここにajaxで呼び出す
-      var questions = ['Более 20 турецких танков пересекли границу с Сирией в районе города Аль-Раи','да','привет'];
+      var questions_all = document.getElementById("questions_all").innerText;
+      var questions = questions_all.split(",");
+
+      //['Более 20 турецких танков пересекли границу с Сирией в районе города Аль-Раи','да','привет'];
 
 
        //画面描写パーツの定義
