@@ -32,16 +32,13 @@
           Time: <div id="sec"></div>
           </span>
           <span class="white-text">
-          Q:  2/30
+          Q:  <div id="qcount">0</div>/30
           </span>
-          <div id="questions_all">
-          <!--問題一覧　ループ中に改行入れない-->
-          <%= @q_sentence %>
-        </div>
+
         </div>
 
-        <a class="waves-effect waves-light btn col s12 indigo"><i class="material-icons left">skip_next</i>SKIP</a><br><br>
-        <a class="waves-effect waves-light btn col s12 blue-grey"><i class="material-icons left">replay</i>RESET</a><br><br>
+        <a class="waves-effect waves-light btn col s12 indigo" onclick="skip()"><i class="material-icons left">skip_next</i>SKIP</a><br><br>
+        <a class="waves-effect waves-light btn col s12 blue-grey" onclick="reset()"><i class="material-icons left">replay</i>RESET</a><br><br>
         <a class="waves-effect waves-light btn col s12 lime darken-3"><i class="material-icons left">settings_power</i>END</a>
         <br><br>
         <a class="waves-effect waves-light btn col s12 orange darken-3"><i class="material-icons left">live_help</i>Key Guide</a><br><br>
@@ -54,6 +51,10 @@
   </div>
   </main>
 
+  <div id="questions_all" style="color:#ffffff;">
+    <!--問題一覧　これは白文字のため表示されない-->
+    <%= @q_sentence %>
+  </div>
 
             <div class="keyguide blue-grey lighten-3" style="">
 
@@ -62,7 +63,7 @@
             <ul>
                         <li class="symbol"><span class="en"></span><br><span class="ru">(Ё)</span></li>
                         <li class="symbol"><span class="en">1</span><br><span class="ru">!</span></li>
-                        <li class="symbol"><span class="en">2</span><br><span class="ru"></span></li>
+                        <li class="symbol"><span class="en">2</span><br><span class="ru">"</span></li>
                         <li class="symbol"><span class="en">3</span><br><span class="ru">№</span></li>
                         <li class="symbol"><span class="en">4</span><br><span class="ru">%</span></li>
                         <li class="symbol"><span class="en">5</span><br><span class="ru">:</span></li>

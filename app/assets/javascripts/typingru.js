@@ -1,6 +1,6 @@
 
       var qNumber= 0;//問題番号初期値
-      //問題文設定。ここにajaxで呼び出す
+      //問題文設定。画面から取得。
       var questions_all = document.getElementById("questions_all").innerText;
       var questions = questions_all.split(",");
 
@@ -15,7 +15,7 @@
         var typedtxt = new Array(); //Show typed text by user
 
        //var keycodes = new Array();
-       var misstype = new Array();
+       var misstype = new Array();//ミスタイプ情報用
 
        var totalTime = 0;
        var charnum = 0;
@@ -24,27 +24,58 @@
        //First question
        newQuestion(qNumber);
 
-       //NGカウント用Object
-       var ngTotal = {};
+       var ngTotal = {};//NGカウント用Object
+       
        //Question renew
        function newQuestion(qNumber){
-         if(qNumber > questions.length -1){ //全問クリア
-          //count NG ミスタイプをカウント
-          misstype.forEach(function(value){
-            if(!ngTotal[value]){
-              ngTotal[value]=1;
-            }else {
-              ngTotal[value] += 1;
-            }
-          });
+             //全問クリア
+             if(qNumber > questions.length -1){ 
+              //count NG ミスタイプをカウント
+              misstype.forEach(function(value){
+                if(!ngTotal[value]){
+                  ngTotal[value]=1;
+                }else {
+                  ngTotal[value] += 1;
+                }
+              });
 
-        ngArray = sortObject(ngTotal);
-       ngMessage = "最もミスタイプしたキーは、  " + ngArray[0].key + "  です。気をつけましょう！";
+             ngArray = sortObject(ngTotal);
+             //ngMessage = "最もミスタイプしたキーは、  " + ngArray[0].key + "  です。気をつけましょう！";
 
-       console.log(ngArray[0].key);
+             alert('complete'+ 'あなたのタイム合計（秒）:  '+totalTime/100);
+             window.location.reload() ;
+           }
 
+         charnum = 0;
+         maxchar = 0;
+         typed.innerHTML = "";
+         maxchar = stoKey(questions[qNumber]).length;
+         question.innerHTML = questions[qNumber]; //Show question
+         document.getElementById("qcount").innerHTML = qNumber + 1;
+         run(); //start count
+       }
 
-        function sortObject(obj) {
+      function skip(){
+        qNumber = document.getElementById("qcount").innerHTML;
+        qNumber = qNumber -1;
+        qNumber += 1;
+        stop();
+        totalTime += Number(document.getElementById('sec').innerHTML)*100;
+        setTimeout("newQuestion(qNumber)",500);
+      }
+
+      function reset(){
+        window.location.reload() ;
+      }
+
+     //問題文を配列に変換
+     function stoKey(question){
+         wordtoArray = question.split("");
+         return wordtoArray;
+     }
+
+     //オブジェクトをソート（NGカウントに使用）
+     function sortObject(obj) {
             var arr = [];
             var prop;
             for (prop in obj) {
@@ -61,26 +92,6 @@
             arr.reverse();
             return arr; // returns array
         }
-
-          alert(ngMessage +'complete'+ 'あなたのタイム合計（秒）:  '+totalTime/100);
-         }
-
-         charnum = 0;
-         maxchar = 0;
-         typed.innerHTML = "";
-         maxchar = stoKey(questions[qNumber]).length;
-         question.innerHTML = questions[qNumber]; //Show question
-         run(); //start count
-       }
-
-      
-
-     //問題文を配列に変換
-     function stoKey(question){
-         wordtoArray = question.split("");
-         return wordtoArray;
-     }
-
 
       //
       //timecount タイム計測機能
