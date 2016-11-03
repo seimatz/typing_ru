@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   def index
-    @questions = Question.order("RAND()").first(3)
+    @questions = Question.order("RAND()").first(30)
     q_array = []
     @questions.each do |q|
       q_array.push(q.question)

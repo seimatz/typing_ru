@@ -69,12 +69,18 @@
                 });
                 //ミスタイプ多い順にソート
                ngArray = sortObject(ngTotal);
-               var ngMessage = 'よくミスするキーは  ' + ngArray[0].key +'  です。気をつけましょう';
+               var fmisstype = "";
+               for(k in ngArray.slice(0,3)){
+                if(ngArray[k].key !== "undefined"){
+                  fmisstype += '<span class="result_misstype">'+ngArray[k].key+'</span>';
+                  }
+                }
+               var ngMessage = '<h5>よくミスするキー Friequent misstyped keyes:</h5><p>' + fmisstype.toString() +'  </p>';
              } else {
-              var ngMessage = 'ミスはゼロです。おめでとうございます！';
+              var ngMessage = '<p>ミスはゼロです。おめでとうございます！</p>';
             }
 
-             var resultMessage = '<p>'+ 'あなたのタイム合計（秒）:  '+totalTime/100 + '</p><p>正確性；' + fineRate.toFixed(2) + '%</p><p>' + ngMessage +'</p>';
+            var resultMessage = '<h4>結果 Result</h4><!--<p>'+ 'あなたのタイム合計（秒）:  '+totalTime/100 + '</p>--><h5>正確性 Accuracy rate: </h5><div class="charts"><div class="charts__chart chart--blue chart--p' + fineRate.toFixed(0) + '" data-percent></div></div>' + ngMessage;
              document.getElementById("result").innerHTML = resultMessage;
              $('#modal2').openModal();
 
@@ -142,7 +148,12 @@
       }
 
       function timer() {
-        //document.getElementById('sec').innerHTML = (((new Date()).getTime() - startTime) / 1000).toFixed(2);
+        var time = document.getElementById('sec');
+        time.value = (((new Date()).getTime() - startTime) / 1000).toFixed(2);
+        if(time.value == 10){
+          time.value = 0;
+          run();
+        }
         timerId = setTimeout(function() { 
           timer(); //0.1 sec ごとにtimer function を実行。これでタイマーが動く。
         }, 100);
@@ -160,7 +171,7 @@
               okCount += 1;
             }
           typeCount = 0;
-          target.innerHTML = "OK" + currentKey;//for debug
+          // target.innerHTML = "OK" + currentKey;//for debug
 
           charnum += 1;
           totalCharnum += 1;
@@ -169,7 +180,7 @@
 
 
             if (charnum == maxchar){ //when last character
-              target.innerHTML = "Clear" + currentKey;
+              // target.innerHTML = "Clear" + currentKey; //debug use
               qNumber += 1;
               stop();
               totalTime += Number(document.getElementById('sec').innerHTML)*100;
@@ -178,7 +189,7 @@
             }
             //キーが間違いの時
         } else {//type false
-          target.innerHTML = "NG" + currentKey;
+          // target.innerHTML = "NG" + currentKey; //debug use
           soundNg();
           misstype.push(wordtoArray[charnum]);
         }
