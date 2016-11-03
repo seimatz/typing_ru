@@ -5,4 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-require "csv" questions_csv = CSV.readlines("db/questions.csv") questions_csv.shift questions_csv.each do |row| Question.create(id: row[1], question: row[2], level: row[3]) end
+require "csv"
+questions_csv = CSV.readlines("db/questions.csv")
+questions_csv.shift questions_csv.each do |row|
+  Question.create(id: row[1], question: row[2], level: row[3])
+end
