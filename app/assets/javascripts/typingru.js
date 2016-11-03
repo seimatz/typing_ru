@@ -15,7 +15,6 @@
         var question = document.getElementById("question");
         var target = document.getElementById("answer");
         var typed = document.getElementById("typed");
-        var timecount = document.getElementById("timecount");
         var typedtxt = new Array(); //Show typed text by user
 
        //keyboard type
@@ -34,8 +33,8 @@
 
        var misstype = new Array();//ミスタイプ情報用
        var ngTotal = {};//NGカウント用Object
-
-       var totalTime = 0;
+       var totalTime = 0;//合計タイム
+       var rapTime = 0;//10秒ラップの回数計測
        var totalCharnum = 0;//文字数の総計をカウント
        var charnum = 0;//１問ごとの文字数（・・文字目）をカウント
        var typeCount = 0;//１文字ごとのタイプ数をカウント（一発正解判定用）
@@ -77,10 +76,28 @@
                 }
                var ngMessage = '<h5>よくミスするキー Friequent misstyped keyes:</h5><p>' + fmisstype.toString() +'  </p>';
              } else {
-              var ngMessage = '<p>ミスはゼロです。おめでとうございます！</p>';
+               var ngMessage = '<p style="font-size:1.5em;">ミスはゼロです。おめでとうございます！</p>';
             }
 
-            var resultMessage = '<h4>結果 Result</h4><!--<p>'+ 'あなたのタイム合計（秒）:  '+totalTime/100 + '</p>--><h5>正確性 Accuracy rate: </h5><div class="charts"><div class="charts__chart chart--blue chart--p' + fineRate.toFixed(0) + '" data-percent></div></div>' + ngMessage;
+            var totalMin = Number(totalTime/100/60).toFixed(2); //合計時間を分に変換（秒）を分に変換
+            var speed = Number(totalCharnum/totalMin).toFixed(0); //1分あたりタイプ数(CPM)計算
+            var star;
+            if(speed > 250){
+              star = 5;
+            } else if(speed > 150){
+              star = 4;
+            } else if(speed >100){
+              star = 3;
+            } else if(speed >50){
+              star = 2;
+            } else {
+              star =1;
+            }
+            var stars = "";
+            for(var i=1 ;i<= star;i++) {
+              stars +='<i class="small material-icons icon-yellow">star</i>';
+            }
+            var resultMessage = '<h4>結果 Result</h4><h5>正確性 Accuracy rate: </h5><div class="charts"><div class="charts__chart chart--blue chart--p' + fineRate.toFixed(0) + '" data-percent></div></div><h5>スピード Speed:</h5>'+stars+'<span class="cpm">(CPM:'+speed+')</span>'+ ngMessage;
              document.getElementById("result").innerHTML = resultMessage;
              $('#modal2').openModal();
 
@@ -144,6 +161,8 @@
       }
 
       function stop() { //stop timecount
+        totalTime += document.getElementById('sec').value*100 + 10 * rapTime * 100;
+        rapTime = 0;
         clearTimeout(timerId);
       }
 
@@ -151,6 +170,7 @@
         var time = document.getElementById('sec');
         time.value = (((new Date()).getTime() - startTime) / 1000).toFixed(2);
         if(time.value == 10){
+          rapTime += 1;
           time.value = 0;
           run();
         }
@@ -183,7 +203,7 @@
               // target.innerHTML = "Clear" + currentKey; //debug use
               qNumber += 1;
               stop();
-              totalTime += Number(document.getElementById('sec').innerHTML)*100;
+              //totalTime += Number(document.getElementById('sec').innerHTML)*100;
               setTimeout("newQuestion(qNumber)",500);
               soundOk();
             }
@@ -196,14 +216,12 @@
 
         };
 
-        function soundOk()
-        {
+        function soundOk() {
           // [ID:sound-file]の音声ファイルを再生[play()]する
           document.getElementById('sound-ok').play() ;
         }
 
-        function soundNg()
-        {
+        function soundNg() {
           // [ID:sound-file]の音声ファイルを再生[play()]する
           document.getElementById('sound-ng').play() ;
         }

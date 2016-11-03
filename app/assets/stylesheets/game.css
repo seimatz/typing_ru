@@ -1,5 +1,4 @@
 
-
 .gamewindow {
   min-height: 300px;
 }
@@ -7,10 +6,12 @@
 .question {
   font-size: 20pt;
   border-bottom: solid 1px #000000;
+  margin-bottom: 30px;
 }
 
 textarea.typedtxt {
   font-size: 20pt;
+  padding: 0;
 }
 
 
@@ -24,6 +25,7 @@ textarea.typedtxt {
     flex: 1 0 auto;
   }
 
+/*result window*/
   .result_misstype{
     color: #F01818;
     font-size: 1.5em;
@@ -38,6 +40,18 @@ textarea.typedtxt {
     -webkit-border-radius: 5px;
 }
 
+i.icon-yellow {
+    color:#ffeb3b;
+}
+
+.cpm {
+    font-size: 1.2em;
+    padding-top: 3px;
+    padding-left: 15px;
+    position: absolute;
+}
+
+/*keyboard guide*/
 .keyguide {
     z-index: 1003;
     display: block;
