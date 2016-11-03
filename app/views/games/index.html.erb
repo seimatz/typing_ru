@@ -27,21 +27,16 @@
 
       <div class="col s3">
         <!-- Info Panel  -->
-        <div class="card-panel grey dark-2">
-          <span class="white-text">
-          Time: <div id="sec"></div>
-          </span>
-          <span class="white-text">
-          Q:  <div id="qcount">0</div>/30
-          </span>
-
+        <div class="card-panel grey dark-2 white-text">
+          <p>Time: <span id="sec"></span></p>
+          <p>Q:  <span id="qcount">0</span>/<span id="qtotal"></span></p>
         </div>
 
-        <a class="waves-effect waves-light btn col s12 indigo" onclick="skip()"><i class="material-icons left">skip_next</i>SKIP</a><br><br>
-        <a class="waves-effect waves-light btn col s12 blue-grey" onclick="reset()"><i class="material-icons left">replay</i>RESET</a><br><br>
-        <a class="waves-effect waves-light btn col s12 lime darken-3"><i class="material-icons left">settings_power</i>END</a>
+        <a class="btn col s12 indigo" onclick="skip()"><i class="material-icons left">skip_next</i>SKIP</a><br><br>
+        <a class="btn col s12 blue-grey" onclick="reset()"><i class="material-icons left">replay</i>RESET</a><br><br>
+        <a class="btn col s12 lime darken-3"><i class="material-icons left">settings_power</i>END</a>
         <br><br>
-        <a class="waves-effect waves-light btn col s12 orange darken-3"><i class="material-icons left">live_help</i>Key Guide</a><br><br>
+        <button data-target="modal1" class="modal-trigger btn col s12 orange darken-3"><i class="material-icons left">live_help</i>HELP</button><br><br>
 
         <p><a href="">バグ報告 Bug Report</a></p>
       </div>
@@ -51,73 +46,182 @@
   </div>
   </main>
 
+ <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>使い方</h4>
+      <p>
+      ・キーボードの入力言語を「ロシア語」に切り替えて、ゲームを始めてください。</p>
+      <p>・制限時間はありません。</p>
+      <p>・SKIPボタンで次の問題へ行けます。</p>
+      <p>・バクを見つけたらバグ報告フォームからご連絡ください。</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-action modal-close btn-flat ">OK</button>
+    </div>
+  </div>
+
+ <!-- Modal Structure for result window-->
+  <div id="modal2" class="modal">
+    <div id="result" class="modal-content">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-action modal-close btn-flat" onclick="reset()">OK</button>
+    </div>
+  </div>
+
+  <!-- 音声ファイルの読み込み -->
+  <%= audio_tag("decision3.mp3", :id=>"sound-ok", :preload=>"auto") %>
+  <%= audio_tag("cancel2.mp3", :id=>"sound-ng", :preload=>"auto") %>
+
   <div id="questions_all" style="color:#ffffff;">
     <!--問題一覧　これは白文字のため表示されない-->
     <%= @q_sentence %>
   </div>
 
-            <div class="keyguide blue-grey lighten-3" style="">
+  <div class="keyguide blue-grey lighten-3">
 
  <div class="container">
+ <div class="row">
       <div id="keyboard">
-            <ul>
-                        <li class="symbol"><span class="en"></span><br><span class="ru">(Ё)</span></li>
-                        <li class="symbol"><span class="en">1</span><br><span class="ru">!</span></li>
-                        <li class="symbol"><span class="en">2</span><br><span class="ru">"</span></li>
-                        <li class="symbol"><span class="en">3</span><br><span class="ru">№</span></li>
-                        <li class="symbol"><span class="en">4</span><br><span class="ru">%</span></li>
-                        <li class="symbol"><span class="en">5</span><br><span class="ru">:</span></li>
-                        <li class="symbol"><span class="en">6</span><br><span class="ru">,</span></li>
-                        <li class="symbol"><span class="en">7</span><br><span class="ru">.</span></li>
-                        <li class="symbol"><span class="en">8</span><br><span class="ru">;</span></li>
-                        <li class="symbol"><span class="en">9</span><br><span class="ru"(</span></li>
-                        <li class="symbol"><span class="en">0</span><br><span class="ru">)</span></li>
-                        <li class="symbol"><span class="en">-</span><br><span class="ru">_</span></li>
-                        <li class="symbol"><span class="en">=</span><br><span class="ru">+</span></li>
-                        <li class="delete lastitem">delete</li>
-                        <li class="tab">tab</li>
-                        <li class="letter"><span class="en">q</span><br><span class="ru">Й</span></li>
-                        <li class="letter"><span class="en">w</span><br><span class="ru">Ц</span></li>
-                        <li class="letter"><span class="en">e</span><br><span class="ru">У</span></li>
-                        <li class="letter"><span class="en">r</span><br><span class="ru">К</span></li>
-                        <li class="letter"><span class="en">t</span><br><span class="ru">Е</span></li>
-                        <li class="letter"><span class="en">y</span><br><span class="ru">Н</span></li>
-                        <li class="letter"><span class="en">u</span><br><span class="ru">Г</span></li>
-                        <li class="letter"><span class="en">i</span><br><span class="ru">Ш</span></li>
-                        <li class="letter"><span class="en">o</span><br><span class="ru">Щ</span></li>
-                        <li class="letter"><span class="en">p</span><br><span class="ru">З</span></li>
-                        <li class="symbol"><span class="en">@</span><br><span class="ru">Х</span></li>
-                        <li class="symbol"><span class="en">[</span><br><span class="ru">Ъ</span></li>
-                        <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
-                        <li class="capslock">caps lock</li>
-                        <li class="letter"><span class="en">a</span><br><span class="ru">Ф</span></li>
-                        <li class="letter"><span class="en">s</span><br><span class="ru">Ы</span></li>
-                        <li class="letter"><span class="en">d</span><br><span class="ru">В</span></li>
-                        <li class="letter"><span class="en">f</span><br><span class="ru">А</span></li>
-                        <li class="letter"><span class="en">g</span><br><span class="ru">П</span></li>
-                        <li class="letter"><span class="en">h</span><br><span class="ru">Р</span></li>
-                        <li class="letter"><span class="en">j</span><br><span class="ru">О</span></li>
-                        <li class="letter"><span class="en">k</span><br><span class="ru">Л</span></li>
-                        <li class="letter"><span class="en">l</span><br><span class="ru">Д</span></li>
-                        <li class="symbol"><span class="en">;</span><br><span class="ru">Ж</span></li>
-                        <li class="symbol"><span class="en">:</span><br><span class="ru">Э</span></li>
-                        <li class="symbol"><span class="en">]</span><br><span class="ru">Ё</span></li>
-                        
-<!--                         <li class="return lastitem">return</li>
- -->                        <li class="left-shift">shift</li>
-                        <li class="letter"><span class="en">z</span><br><span class="ru">Я</span></li>
-                        <li class="letter"><span class="en">x</span><br><span class="ru">Ч</span></li>
-                        <li class="letter"><span class="en">c</span><br><span class="ru">С</span></li>
-                        <li class="letter"><span class="en">v</span><br><span class="ru">М</span></li>
-                        <li class="letter"><span class="en">b</span><br><span class="ru">И</span></li>
-                        <li class="letter"><span class="en">n</span><br><span class="ru">Т</span></li>
-                        <li class="letter"><span class="en">m</span><br><span class="ru">Ь</span></li>
-                        <li class="symbol"><span class="en">&lt;</span><br><span class="ru">Б</span></li>
-                        <li class="symbol"><span class="en">&gt;</span><br><span class="ru">Ю</span></li>
-                        <li class="symbol"><span class="en">?</span><br><span class="ru"></span></li>
-                        <li class="right-shift lastitem">shift</li>
-<!--                         <li class="space lastitem">&nbsp;</li>
- -->                    </ul>
-              </div>
+        <div id="keyboard_1" class="col s10">
+              <ul>
+                          <li class="symbol"><span class="en"></span><br><span class="ru">Ё</span></li>
+                          <li class="symbol"><span class="en">1</span><br><span class="ru">!</span></li>
+                          <li class="symbol"><span class="en">2</span><br><span class="ru">"</span></li>
+                          <li class="symbol"><span class="en">3</span><br><span class="ru">№</span></li>
+                          <li class="symbol"><span class="en">4</span><br><span class="ru">;</span></li>
+                          <li class="symbol"><span class="en">5</span><br><span class="ru">%</span></li>
+                          <li class="symbol"><span class="en">6</span><br><span class="ru">:</span></li>
+                          <li class="symbol"><span class="en">7</span><br><span class="ru">?</span></li>
+                          <li class="symbol"><span class="en">8</span><br><span class="ru">*</span></li>
+                          <li class="symbol"><span class="en">9</span><br><span class="ru">(</span></li>
+                          <li class="symbol"><span class="en">0</span><br><span class="ru">)</span></li>
+                          <li class="symbol"><span class="en">-</span><br><span class="ru">_</span></li>
+                          <li class="symbol"><span class="en">^</span><br><span class="ru">=+</span></li>
+                          <li class="delete lastitem">delete</li>
+                          <li class="tab">tab</li>
+                          <li class="letter"><span class="en">q</span><br><span class="ru">Й</span></li>
+                          <li class="letter"><span class="en">w</span><br><span class="ru">Ц</span></li>
+                          <li class="letter"><span class="en">e</span><br><span class="ru">У</span></li>
+                          <li class="letter"><span class="en">r</span><br><span class="ru">К</span></li>
+                          <li class="letter"><span class="en">t</span><br><span class="ru">Е</span></li>
+                          <li class="letter"><span class="en">y</span><br><span class="ru">Н</span></li>
+                          <li class="letter"><span class="en">u</span><br><span class="ru">Г</span></li>
+                          <li class="letter"><span class="en">i</span><br><span class="ru">Ш</span></li>
+                          <li class="letter"><span class="en">o</span><br><span class="ru">Щ</span></li>
+                          <li class="letter"><span class="en">p</span><br><span class="ru">З</span></li>
+                          <li class="symbol"><span class="en">@</span><br><span class="ru">Х</span></li>
+                          <li class="symbol"><span class="en">[</span><br><span class="ru">Ъ</span></li>
+                          <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+                          <li class="capslock">caps lock</li>
+                          <li class="letter"><span class="en">a</span><br><span class="ru">Ф</span></li>
+                          <li class="letter"><span class="en">s</span><br><span class="ru">Ы</span></li>
+                          <li class="letter"><span class="en">d</span><br><span class="ru">В</span></li>
+                          <li class="letter"><span class="en">f</span><br><span class="ru">А</span></li>
+                          <li class="letter"><span class="en">g</span><br><span class="ru">П</span></li>
+                          <li class="letter"><span class="en">h</span><br><span class="ru">Р</span></li>
+                          <li class="letter"><span class="en">j</span><br><span class="ru">О</span></li>
+                          <li class="letter"><span class="en">k</span><br><span class="ru">Л</span></li>
+                          <li class="letter"><span class="en">l</span><br><span class="ru">Д</span></li>
+                          <li class="symbol"><span class="en">;</span><br><span class="ru">Ж</span></li>
+                          <li class="symbol"><span class="en">:</span><br><span class="ru">Э</span></li>
+                          <li class="symbol"><span class="en">]</span><br><span class="ru"></span></li>
+                          
+  <!--                         <li class="return lastitem">return</li>
+   -->                        <li class="left-shift">shift</li>
+                          <li class="letter"><span class="en">z</span><br><span class="ru">Я</span></li>
+                          <li class="letter"><span class="en">x</span><br><span class="ru">Ч</span></li>
+                          <li class="letter"><span class="en">c</span><br><span class="ru">С</span></li>
+                          <li class="letter"><span class="en">v</span><br><span class="ru">М</span></li>
+                          <li class="letter"><span class="en">b</span><br><span class="ru">И</span></li>
+                          <li class="letter"><span class="en">n</span><br><span class="ru">Т</span></li>
+                          <li class="letter"><span class="en">m</span><br><span class="ru">Ь</span></li>
+                          <li class="symbol"><span class="en">&lt;</span><br><span class="ru">Б</span></li>
+                          <li class="symbol"><span class="en">&gt;</span><br><span class="ru">Ю</span></li>
+                          <li class="symbol"><span class="en">?</span><br><span class="ru">. ,</span></li>
+                          <li class="right-shift lastitem">shift</li>
+  <!--                         <li class="space lastitem">&nbsp;</li>
+   -->                    </ul>
+                </div>
+
+                <!-- type2-->
+          <div id="keyboard_2" class="col s10" style="display:none;">
+              <ul>
+                          <li class="symbol"><span class="en"></span><br><span class="ru"></span></li>
+                          <li class="symbol"><span class="en">1</span><br><span class="ru">!</span></li>
+                          <li class="symbol"><span class="en">2</span><br><span class="ru">"</span></li>
+                          <li class="symbol"><span class="en">3</span><br><span class="ru">№</span></li>
+                          <li class="symbol"><span class="en">4</span><br><span class="ru">%</span></li>
+                          <li class="symbol"><span class="en">5</span><br><span class="ru">:</span></li>
+                          <li class="symbol"><span class="en">6</span><br><span class="ru">,</span></li>
+                          <li class="symbol"><span class="en">7</span><br><span class="ru">.</span></li>
+                          <li class="symbol"><span class="en">8</span><br><span class="ru">;</span></li>
+                          <li class="symbol"><span class="en">9</span><br><span class="ru">(</span></li>
+                          <li class="symbol"><span class="en">0</span><br><span class="ru">)</span></li>
+                          <li class="symbol"><span class="en">-</span><br><span class="ru">_</span></li>
+                          <li class="symbol"><span class="en">^</span><br><span class="ru">=+</span></li>
+                          <li class="delete lastitem">delete</li>
+                          <li class="tab">tab</li>
+                          <li class="letter"><span class="en">q</span><br><span class="ru">Й</span></li>
+                          <li class="letter"><span class="en">w</span><br><span class="ru">Ц</span></li>
+                          <li class="letter"><span class="en">e</span><br><span class="ru">У</span></li>
+                          <li class="letter"><span class="en">r</span><br><span class="ru">К</span></li>
+                          <li class="letter"><span class="en">t</span><br><span class="ru">Е</span></li>
+                          <li class="letter"><span class="en">y</span><br><span class="ru">Н</span></li>
+                          <li class="letter"><span class="en">u</span><br><span class="ru">Г</span></li>
+                          <li class="letter"><span class="en">i</span><br><span class="ru">Ш</span></li>
+                          <li class="letter"><span class="en">o</span><br><span class="ru">Щ</span></li>
+                          <li class="letter"><span class="en">p</span><br><span class="ru">З</span></li>
+                          <li class="symbol"><span class="en">@</span><br><span class="ru">Х</span></li>
+                          <li class="symbol"><span class="en">[</span><br><span class="ru">Ъ</span></li>
+                          <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+                          <li class="capslock">caps lock</li>
+                          <li class="letter"><span class="en">a</span><br><span class="ru">Ф</span></li>
+                          <li class="letter"><span class="en">s</span><br><span class="ru">Ы</span></li>
+                          <li class="letter"><span class="en">d</span><br><span class="ru">В</span></li>
+                          <li class="letter"><span class="en">f</span><br><span class="ru">А</span></li>
+                          <li class="letter"><span class="en">g</span><br><span class="ru">П</span></li>
+                          <li class="letter"><span class="en">h</span><br><span class="ru">Р</span></li>
+                          <li class="letter"><span class="en">j</span><br><span class="ru">О</span></li>
+                          <li class="letter"><span class="en">k</span><br><span class="ru">Л</span></li>
+                          <li class="letter"><span class="en">l</span><br><span class="ru">Д</span></li>
+                          <li class="symbol"><span class="en">;</span><br><span class="ru">Ж</span></li>
+                          <li class="symbol"><span class="en">:</span><br><span class="ru">Э</span></li>
+                          <li class="symbol"><span class="en">]</span><br><span class="ru">Ё</span></li>
+  <!--                         <li class="return lastitem">return</li>
+   -->                        <li class="left-shift">shift</li>
+                          <li class="letter"><span class="en">z</span><br><span class="ru">Я</span></li>
+                          <li class="letter"><span class="en">x</span><br><span class="ru">Ч</span></li>
+                          <li class="letter"><span class="en">c</span><br><span class="ru">С</span></li>
+                          <li class="letter"><span class="en">v</span><br><span class="ru">М</span></li>
+                          <li class="letter"><span class="en">b</span><br><span class="ru">И</span></li>
+                          <li class="letter"><span class="en">n</span><br><span class="ru">Т</span></li>
+                          <li class="letter"><span class="en">m</span><br><span class="ru">Ь</span></li>
+                          <li class="symbol"><span class="en">&lt;</span><br><span class="ru">Б</span></li>
+                          <li class="symbol"><span class="en">&gt;</span><br><span class="ru">Ю</span></li>
+                          <li class="symbol"><span class="en">?</span><br><span class="ru"></span></li>
+                          <li class="right-shift lastitem">shift</li>
+  <!--                         <li class="space lastitem">&nbsp;</li>
+   -->                    </ul>
+                </div>
+            </div>
+
+              <div id="keyswitch" class="col s2 card white">
+               <form>
+                 <p>Keyboard Type</p>
+    <p>
+      <input name="group1" type="radio" id="test1" onchange="keyboardChange()" checked="checked" />
+      <label for="test1">Type1</label>
+    </p>
+    <p>
+      <input name="group1" type="radio" id="test2" onchange="keyboardChange()" />
+      <label for="test2">Type2</label>
+    </p>
+
+              </form>
+            </div>
+          </div>
+
             </div>
           </div>
