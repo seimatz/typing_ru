@@ -11,7 +11,8 @@
 
 textarea.typedtxt {
   font-size: 20pt;
-  padding: 0;
+  min-height: 40px;
+  /*padding: 0;*/
 }
 
 
@@ -69,6 +70,10 @@ i.icon-yellow {
     padding-bottom: 10px;
     overflow-y: auto;
 }
+.keyguidehide {
+    z-index: 0;
+    }
+
 /*keyboard guide*/
 #container {
 margin: 10px auto;

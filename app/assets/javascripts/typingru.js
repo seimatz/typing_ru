@@ -1,12 +1,13 @@
   $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
+    //$('#modal3').openModal();
   });
 
       var qNumber= 0;//問題番号初期値
       //問題文設定。画面から取得。
       var questions_all = document.getElementById("questions_all").innerText;
-      var questions = questions_all.split(",");
+      var questions = questions_all.split("/");
       document.getElementById("qtotal").innerHTML = questions.length;
       //['Более 20 турецких танков пересекли границу с Сирией в районе города Аль-Раи','да','привет'];
 
@@ -100,7 +101,7 @@
             var resultMessage = '<h4>結果 Result</h4><h5>正確性 Accuracy rate: </h5><div class="charts"><div class="charts__chart chart--blue chart--p' + fineRate.toFixed(0) + '" data-percent></div></div><h5>スピード Speed:</h5>'+stars+'<span class="cpm">(CPM:'+speed+')</span>'+ ngMessage;
              document.getElementById("result").innerHTML = resultMessage;
              $('#modal2').openModal();
-
+             hidekeyguide();
            }
 
          charnum = 0;
@@ -215,6 +216,10 @@
         }
 
         };
+
+        function hidekeyguide(){
+          document.getElementById("keyboard").style.zIndex = "0";
+        }
 
         function soundOk() {
           // [ID:sound-file]の音声ファイルを再生[play()]する

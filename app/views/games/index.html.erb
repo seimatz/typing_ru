@@ -8,13 +8,13 @@
         <!-- Typing field -->
         <div class="card-panel gamewindow">
               <!-- 問題　Questionary Area -->
-              <div id="question" class="grey-text text-darken-4 question"></div>
+              <div id="question" class="grey-text text-darken-4 question""></div>
               <!-- 回答　Answer Area-->
               <div class="row">
                 <form class="col s12">
                   <div class="row">
                     <div class="input-field col s12">
-                      <textarea id="typed" class="materialize-textarea red-text text-darken-2 typedtxt" autofocus readonly></textarea>
+                      <textarea id="typed" class="materialize-textarea red-text text-darken-2 typedtxt"  wrap="soft" autofocus readonly></textarea>
                       <label for="typed"></label>
                     </div>
                   </div>
@@ -36,7 +36,7 @@
         <a class="btn col s12 blue-grey" onclick="reset()"><i class="material-icons left">replay</i>RESET</a><br><br>
         <a class="btn col s12 lime darken-3" href="/"><i class="material-icons left">settings_power</i>END</a>
         <br><br>
-        <button data-target="modal1" class="modal-trigger btn col s12 orange darken-3"><i class="material-icons left">live_help</i>HELP</button><br><br>
+        <button data-target="modal1" class="modal-trigger btn col s12 orange darken-3" onclick="hidekeyguide()"><i class="material-icons left">live_help</i>HELP</button><br><br>
         <a href="https://goo.gl/forms/LfdHgaVzdLPRTayX2" target="_blank" style="margin-top:10px;">バグ報告 Bug Report</a>
       </div>
 
@@ -68,6 +68,17 @@
     </div>
   </div>
 
+<!-- Modal Structure for start window-->
+  <div id="modal3" class="modal">
+    <div id="start" class="modal-content">
+     Ready?
+     <button onclick="">Go!</button>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-action modal-close btn-flat" style="clear:both;" onclick="reset()">OK</button>
+    </div>
+  </div>
+
   <!-- 音声ファイルの読み込み -->
   <%= audio_tag("decision3.mp3", :id=>"sound-ok", :preload=>"auto") %>
   <%= audio_tag("cancel2.mp3", :id=>"sound-ng", :preload=>"auto") %>
@@ -77,11 +88,10 @@
     <%= @q_sentence %>
   </div>
 
-  <div class="keyguide blue-grey lighten-3">
+  <div id="keyboard" class="keyguide blue-grey lighten-3">
 
  <div class="container">
  <div class="row">
-      <div id="keyboard">
         <div id="keyboard_1" class="col s10">
               <ul>
                           <li class="symbol"><span class="en"></span><br><span class="ru">Ё</span></li>
@@ -203,7 +213,6 @@
   <!--                         <li class="space lastitem">&nbsp;</li>
    -->                    </ul>
                 </div>
-            </div>
 
               <div id="keyswitch" class="col s2 card white">
                <form>
