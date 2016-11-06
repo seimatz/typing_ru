@@ -223,6 +223,7 @@
 
         function soundOk() {
           // [ID:sound-file]の音声ファイルを再生[play()]する
+          document.getElementById('sound-ok').load();
           document.getElementById('sound-ok').play() ;
         }
 
