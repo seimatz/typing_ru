@@ -157,3 +157,20 @@ list-style: none;
         border-color: #e5e5e5;
         cursor: pointer;
         }
+
+#contents h2 {
+    font-size: 2.8em;
+}
+
+#contents h3 {
+    font-size: 2.5em;
+        margin-top: 1.0em;
+}
+
+#contents h4 {
+        font-size: 2.0em;
+}
+
+#contents img {
+    max-width: 100%;
+}
